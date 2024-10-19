@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Links Cronnos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <img src="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-2-e1729300987792.png" alt="Logo Cronnos" class="logo">
+        <h2>Gerador de Links Cronnos</h2>
+        <form id="checkoutForm">
+            <label for="checkoutLink">Link do Checkout:</label>
+            <input type="url" id="checkoutLink" placeholder="Insira o link do checkout" required>
+
+            <label for="funil">Funil:</label>
+            <select id="funil" required>
+                <option value="">Selecione...</option>
+                <option value="LAN">Lançamento</option>
+                <option value="SE">Sessão Estratégica</option>
+                <option value="CP">Consultoria Paga</option>
+                <option value="LM">Levantada de Mão</option>
+                <option value="SS">Social Selling</option>
+            </select>
+
+            <label for="campanha">Campanha:</label>
+            <select id="campanha">
+                <option value="">Selecione...</option>
+                <option value="OUT1">Outubro I</option>
+                <option value="OUTII">Outubro II</option>
+                <option value="WB">Webinário Diário</option>
+            </select>
+
+            <label for="sdr">SDR:</label>
+            <select id="sdr" required>
+                <option value="">Selecione...</option>
+                <option value="GS">Gabriela Sales</option>
+                <option value="BV">Beatriz Volpi</option>
+                <option value="LV">Laura Vozniak</option>
+                <option value="LS">Luana Silva</option>
+                <option value="PS">Pedro Sampaio</option>
+                <option value="RF">Rafaela Freitas</option>
+                <option value="REG">Reginaldo</option>
+            </select>
+
+            <label for="closer">Closer:</label>
+            <select id="closer" required>
+                <option value="">Selecione...</option>
+                <option value="RS">Robert Sampaio</option>
+                <option value="SB">Samuel Bassani</option>
+                <option value="GK">Gabriela Kowacic</option>
+                <option value="MF">Matheus Franco</option>
+                <option value="JS">João Syrio</option>
+            </select>
+
+            <button type="button" id="generateLink">Gerar Link</button>
+        </form>
+
+        <div id="linkOutput"></div>
+        <p class="credit">Feito com ♥ por Thais M.</p>
+    </div>
+</body>
+</html>
+
+<!-- script.js -->
+<script>
+document.getElementById("generateLink").addEventListener("click", function() {
+    const checkoutLink = document.getElementById("checkoutLink").value;
+    const funil = document.getElementById("funil").value;
+    const campanha = document.getElementById("campanha").value;
+    const sdr = document.getElementById("sdr").value;
+    const closer = document.getElementById("closer").value;
+
+    if (!checkoutLink || !funil || !sdr || !closer) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    let link = checkoutLink + "?utm_source=" + funil;
+
+    if (funil === "LAN" && campanha) {
+        link += "&utm_campaign=" + campanha;
+    } else if (funil === "LAN" && !campanha) {
+        alert("Campanha é obrigatória para o funil Lançamento.");
+        return;
+    }
+
+    link += "&utm_term=" + sdr;
+    link += "&utm_medium=" + closer;
+
+    document.getElementById("linkOutput").innerHTML = `<p style="font-size: 0.9em;">Link Gerado: <a href="${link}" target="_blank">${link}</a><button id="copyLinkButton" class="copy-btn"><img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar"></button></p>`;
+
+    document.getElementById("copyLinkButton").addEventListener("click", function() {
+        navigator.clipboard.writeText(link).then(() => {
+            alert("Link copiado para a área de transferência!");
+        }).catch(err => {
+            console.error("Erro ao copiar o link: ", err);
+        });
+    });
+});
+</script>
+
+<!-- styles.css -->
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 350px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+select, input, button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1em;
+}
+
+select, input {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+
+button {
+    background-color: #6c63ff;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #5750d3;
+}
+
+#linkOutput {
+    margin-top: 20px;
+    word-wrap: break-word;
+    color: #76c7c0;
+}
+
+#linkOutput a {
+    color: #76c7c0;
+    text-decoration: none;
+    display: inline;
+    margin-right: 10px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.copy-btn img {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s;
+}
+
+.copy-btn:hover img {
+    transform: scale(1.1);
+}
+
+.credit {
+    margin-top: 20px;
+    font-size: 0.8em;
+    color: #ffffff;
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .logo {
+        max-width: 150px;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    select, input, button {
+        font-size: 0.9em;
+    }
+
+    #linkOutput p {
+        font-size: 0.8em;
+    }
+}
+</style>
