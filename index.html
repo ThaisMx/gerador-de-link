@@ -66,7 +66,7 @@
         <div id="linkOutput"></div>
 
         <div class="quick-links">
-            <a href="https://www.loom.com/share/e2f7605648b0480dbb982a78ddb5795b?sid=2764c110-ee3b-4421-a911-92fe05c6c733" target="_blank">Central de Ajuda</a>
+            <a href="https://thaismx.github.io/gerador-de-link/" target="_blank">Central de Ajuda</a>
             <a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" target="_blank">Link de Venda</a>
         </div>
 
@@ -121,10 +121,10 @@ document.getElementById("generateLink").addEventListener("click", function() {
 
     let link = checkoutLink + "?utm_source=" + funil;
 
-    if (funil === "LAN" && campanha) {
+    if ((funil === "LAN" || funil === "SE") && campanha) {
         link += "&utm_campaign=" + campanha;
-    } else if (funil === "LAN" && !campanha) {
-        alert("Campanha é obrigatória para o funil Lançamento.");
+    } else if ((funil === "LAN" || funil === "SE") && !campanha) {
+        alert("Campanha é obrigatória para o funil selecionado.");
         return;
     }
 
