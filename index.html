@@ -45,7 +45,7 @@
                 <option value="LS">Luanna Silva</option>
                 <option value="PS">Pedro Sampaio</option>
                 <option value="RF">Rafaela Freitas</option>
-                <option value="REG">Reginaldo</option>
+                <option value="RR">Reginaldo Roberto</option>
             </select>
 
             <label for="closer">Closer:</label>
@@ -62,6 +62,12 @@
         </form>
 
         <div id="linkOutput"></div>
+
+        <div class="quick-links">
+            <p><a href="https://thaismx.github.io/gerador-de-link/" target="_blank">Central de Ajuda</a></p>
+            <p><a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" target="_blank">Link de Venda</a></p>
+        </div>
+
         <p class="credit">Feito com ♥ por Thais M.</p>
     </div>
 </body>
@@ -127,6 +133,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .container {
@@ -134,12 +142,14 @@ body {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    width: 350px;
+    width: 100%;
+    max-width: 400px;
     text-align: center;
 }
 
 .logo {
-    max-width: 200px;
+    max-width: 100%;
+    height: auto;
     margin-bottom: 20px;
 }
 
@@ -158,6 +168,7 @@ label {
     margin-top: 15px;
     text-align: left;
     font-weight: 500;
+    font-size: 0.9em;
 }
 
 select, input, button {
@@ -166,6 +177,8 @@ select, input, button {
     border-radius: 8px;
     border: none;
     font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 select, input {
@@ -188,6 +201,7 @@ button:hover {
     margin-top: 20px;
     word-wrap: break-word;
     color: #76c7c0;
+    font-size: 0.9em;
 }
 
 #linkOutput a {
@@ -214,6 +228,20 @@ button:hover {
     transform: scale(1.1);
 }
 
+.quick-links {
+    margin-top: 20px;
+}
+
+.quick-links p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.quick-links a {
+    color: #76c7c0;
+    text-decoration: none;
+}
+
 .credit {
     margin-top: 20px;
     font-size: 0.8em;
@@ -222,12 +250,7 @@ button:hover {
 
 @media (max-width: 480px) {
     .container {
-        width: 90%;
         padding: 20px;
-    }
-
-    .logo {
-        max-width: 150px;
     }
 
     h2 {
@@ -240,6 +263,10 @@ button:hover {
 
     #linkOutput p {
         font-size: 0.8em;
+    }
+
+    label {
+        font-size: 0.85em;
     }
 }
 </style>
