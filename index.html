@@ -34,10 +34,12 @@
                 <option value="OUT1">Outubro I</option>
                 <option value="OUTII">Outubro II</option>
                 <option value="WB">Webinário Diário</option>
+                <option value="AA">Auto-Agendamento</option>
+                <option value="SAA">Sem Auto-Agendamento</option>
             </select>
 
             <label for="sdr">SDR:</label>
-            <select id="sdr" required>
+            <select id="sdr">
                 <option value="">Selecione...</option>
                 <option value="GS">Gabriela Sales</option>
                 <option value="BV">Beatriz Volpi</option>
@@ -49,7 +51,7 @@
             </select>
 
             <label for="closer">Closer:</label>
-            <select id="closer" required>
+            <select id="closer">
                 <option value="">Selecione...</option>
                 <option value="RS">Robert Sampaio</option>
                 <option value="SB">Samuel Bassani</option>
@@ -64,8 +66,8 @@
         <div id="linkOutput"></div>
 
         <div class="quick-links">
-            <a href="https://thaismx.github.io/gerador-de-link/" target="_blank">Central de Ajuda</a>
-            <a href="https://www.loom.com/share/513642ee476643b49c68faee7f734280?sid=35f52e3e-0b39-4f20-852a-43f21664b7df" target="_blank">Link de Venda</a>
+            <a href="https://www.loom.com/share/e2f7605648b0480dbb982a78ddb5795b?sid=2764c110-ee3b-4421-a911-92fe05c6c733" target="_blank">Central de Ajuda</a>
+            <a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" target="_blank">Link de Venda</a>
         </div>
 
         <p class="credit">Feito com ♥ por Thais M.</p>
@@ -78,8 +80,22 @@
 document.getElementById("funil").addEventListener("change", function() {
     const funil = document.getElementById("funil").value;
     const campanha = document.getElementById("campanha");
+
     if (funil === "LAN") {
         campanha.disabled = false;
+        campanha.innerHTML = `
+            <option value="">Selecione...</option>
+            <option value="OUT1">Outubro I</option>
+            <option value="OUTII">Outubro II</option>
+            <option value="WB">Webinário Diário</option>
+        `;
+    } else if (funil === "SE") {
+        campanha.disabled = false;
+        campanha.innerHTML = `
+            <option value="">Selecione...</option>
+            <option value="AA">Auto-Agendamento</option>
+            <option value="SAA">Sem Auto-Agendamento</option>
+        `;
     } else {
         campanha.disabled = true;
         campanha.value = "";
@@ -93,8 +109,13 @@ document.getElementById("generateLink").addEventListener("click", function() {
     const sdr = document.getElementById("sdr").value;
     const closer = document.getElementById("closer").value;
 
-    if (!checkoutLink || !funil || !sdr || !closer) {
+    if (!checkoutLink || !funil) {
         alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    if (!sdr && !closer) {
+        alert("Por favor, selecione pelo menos SDR ou Closer.");
         return;
     }
 
@@ -107,8 +128,12 @@ document.getElementById("generateLink").addEventListener("click", function() {
         return;
     }
 
-    link += "&utm_term=" + sdr;
-    link += "&utm_medium=" + closer;
+    if (sdr) {
+        link += "&utm_term=" + sdr;
+    }
+    if (closer) {
+        link += "&utm_medium=" + closer;
+    }
 
     document.getElementById("linkOutput").innerHTML = `<p style="font-size: 0.9em;">Link Gerado: <a href="${link}" target="_blank">${link}</a><button id="copyLinkButton" class="copy-btn"><img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar"></button></p>`;
 
