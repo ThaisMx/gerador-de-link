@@ -119,20 +119,27 @@ document.getElementById("generateLink").addEventListener("click", function() {
         return;
     }
 
-    let link = checkoutLink + "?utm_source=" + funil;
+    let link = checkoutLink;
 
-    if ((funil === "LAN" || funil === "SE") && campanha) {
-        link += "&utm_campaign=" + campanha;
-    } else if ((funil === "LAN" || funil === "SE") && !campanha) {
-        alert("Campanha é obrigatória para o funil selecionado.");
-        return;
-    }
+    if (checkoutLink.startsWith("https://pay.hotmart.com/")) {
+        const srcParams = [funil, campanha, sdr, closer].filter(Boolean).join("-");
+        link += (link.includes("?") ? "&" : "?") + "src=" + srcParams;
+    } else {
+        link += "?utm_source=" + funil;
 
-    if (sdr) {
-        link += "&utm_term=" + sdr;
-    }
-    if (closer) {
-        link += "&utm_medium=" + closer;
+        if ((funil === "LAN" || funil === "SE") && campanha) {
+            link += "&utm_campaign=" + campanha;
+        } else if ((funil === "LAN" || funil === "SE") && !campanha) {
+            alert("Campanha é obrigatória para o funil selecionado.");
+            return;
+        }
+
+        if (sdr) {
+            link += "&utm_term=" + sdr;
+        }
+        if (closer) {
+            link += "&utm_medium=" + closer;
+        }
     }
 
     document.getElementById("linkOutput").innerHTML = `<p style="font-size: 0.9em;">Link Gerado: <a href="${link}" target="_blank">${link}</a><button id="copyLinkButton" class="copy-btn"><img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar"></button></p>`;
