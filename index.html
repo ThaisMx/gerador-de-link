@@ -122,23 +122,20 @@ document.getElementById("generateLink").addEventListener("click", function() {
     let link = checkoutLink;
 
     if (checkoutLink.startsWith("https://pay.hotmart.com/")) {
-        const srcParams = [funil, campanha, sdr, closer].filter(Boolean).join("-");
+        const srcParams = ["comercial_org", funil, campanha, sdr, closer].filter(Boolean).join("-");
         link += (link.includes("?") ? "&" : "?") + "src=" + srcParams;
     } else {
-        link += "?utm_source=" + funil;
+        link += "?utm_source=comercial_org";
+        link += "&utm_campaign=" + funil;
 
-        if ((funil === "LAN" || funil === "SE") && campanha) {
-            link += "&utm_campaign=" + campanha;
-        } else if ((funil === "LAN" || funil === "SE") && !campanha) {
-            alert("Campanha é obrigatória para o funil selecionado.");
-            return;
+        if (campanha) {
+            link += "&utm_term=" + campanha;
         }
-
         if (sdr) {
-            link += "&utm_term=" + sdr;
+            link += "&utm_medium=" + sdr;
         }
         if (closer) {
-            link += "&utm_medium=" + closer;
+            link += "&utm_content=" + closer;
         }
     }
 
