@@ -31,9 +31,8 @@
             <label for="campanha">Campanha:</label>
             <select id="campanha" disabled>
                 <option value="">Selecione...</option>
-                <option value="OUT1">Outubro I</option>
-                <option value="OUTII">Outubro II</option>
                 <option value="BF">Black Friday</option>
+                <option value="OUTII">Outubro II</option> 
                 <option value="WB">Webinário Diário</option>
                 <option value="AA">Auto-Agendamento</option>
                 <option value="SAA">Sem Auto-Agendamento</option>
@@ -42,14 +41,14 @@
             <label for="sdr">SDR:</label>
             <select id="sdr">
                 <option value="">Selecione...</option>
-                <option value="GS">Gabriela Sales</option>
                 <option value="BV">Beatriz Volpi</option>
+                <option value="GS">Gabriela Sales</option>
+                <option value="GO">Gabriel Oliveira</option>
                 <option value="LV">Laura Vozniak</option>
                 <option value="LS">Luanna Silva</option>
                 <option value="PS">Pedro Sampaio</option>
                 <option value="RF">Rafaela Freitas</option>
                 <option value="RR">Reginaldo Roberto</option>
-                <option value="GO">Gabriel Oliveira</option>
             </select>
 
             <label for="closer">Closer:</label>
@@ -88,10 +87,10 @@ document.getElementById("funil").addEventListener("change", function() {
         campanha.disabled = false;
         campanha.innerHTML = `
             <option value="">Selecione...</option>
-            <option value="OUT1">Outubro I</option>
+            <option value="BF">Black Friday</option> 
             <option value="OUTII">Outubro II</option>
             <option value="WB">Webinário Diário</option>
-            <option value="BF">Black Friday</option>
+            
         `;
     } else if (funil === "SE") {
         campanha.disabled = false;
