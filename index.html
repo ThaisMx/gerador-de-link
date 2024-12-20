@@ -1,15 +1,15 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Links Cronnos</title>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" href="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-3.png" type="image/png">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-        <script defer src="script.js"></script>
-    </head>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links Cronnos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-3.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <script defer src="script.js"></script>
+</head>
 <body>
     <div class="container">
         <img src="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-2-e1729300987792.png" alt="Logo Cronnos" class="logo">
@@ -35,11 +35,6 @@
                 <option value="WB">Webinário Diário</option>
                 <option value="AA">Auto-Agendamento</option>
                 <option value="SAA">Sem Auto-Agendamento</option>
-            </select>
-
-            <label for="sdr">SDR:</label>
-            <select id="sdr">
-                <option value="">Selecione...</option>
             </select>
 
             <label for="closer">Inside Sales:</label>
@@ -75,6 +70,7 @@
 </body>
 </html>
 
+
 <!-- script.js -->
 <script>
 document.getElementById("funil").addEventListener("change", function() {
@@ -87,7 +83,6 @@ document.getElementById("funil").addEventListener("change", function() {
             <option value="">Selecione...</option>
             <option value="MTP">Mapa do Trader Patrocinado</option> 
             <option value="WB">Webinário Diário</option>
-            
         `;
     } else if (funil === "SE") {
         campanha.disabled = false;
@@ -98,7 +93,7 @@ document.getElementById("funil").addEventListener("change", function() {
         `;
     } else {
         campanha.disabled = true;
-        campanha.value = "";
+        campanha.innerHTML = `<option value="">Selecione...</option>`;
     }
 });
 
@@ -106,23 +101,24 @@ document.getElementById("generateLink").addEventListener("click", function() {
     const checkoutLink = document.getElementById("checkoutLink").value;
     const funil = document.getElementById("funil").value;
     const campanha = document.getElementById("campanha").value;
-    const sdr = document.getElementById("sdr").value;
     const closer = document.getElementById("closer").value;
 
+    // Validação dos campos obrigatórios
     if (!checkoutLink || !funil) {
         alert("Por favor, preencha todos os campos obrigatórios.");
         return;
     }
 
-    if (!sdr && !closer) {
-        alert("Por favor, selecione pelo menos SDR ou Closer.");
+    if (!closer) {
+        alert("Por favor, selecione um Inside Sales.");
         return;
     }
 
+    // Construção do link
     let link = checkoutLink;
 
     if (checkoutLink.startsWith("https://pay.hotmart.com/")) {
-        const srcParams = ["comercial_org", funil, campanha, sdr, closer].filter(Boolean).join("-");
+        const srcParams = ["comercial_org", funil, campanha, closer].filter(Boolean).join("-");
         link += (link.includes("?") ? "&" : "?") + "src=" + srcParams;
     } else {
         link += "?utm_source=comercial_org";
@@ -131,16 +127,22 @@ document.getElementById("generateLink").addEventListener("click", function() {
         if (campanha) {
             link += "&utm_term=" + campanha;
         }
-        if (sdr) {
-            link += "&utm_medium=" + sdr;
-        }
         if (closer) {
             link += "&utm_content=" + closer;
         }
     }
 
-    document.getElementById("linkOutput").innerHTML = `<p style="font-size: 0.9em;">Link Gerado: <a href="${link}" target="_blank">${link}</a><button id="copyLinkButton" class="copy-btn"><img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar"></button></p>`;
+    // Exibição do link gerado
+    document.getElementById("linkOutput").innerHTML = `
+        <p style="font-size: 0.9em;">
+            Link Gerado: <a href="${link}" target="_blank">${link}</a>
+            <button id="copyLinkButton" class="copy-btn">
+                <img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar">
+            </button>
+        </p>
+    `;
 
+    // Função de cópia para a área de transferência
     document.getElementById("copyLinkButton").addEventListener("click", function() {
         navigator.clipboard.writeText(link).then(() => {
             alert("Link copiado para a área de transferência!");
