@@ -31,7 +31,7 @@
             <label for="campanha">Campanha:</label>
             <select id="campanha" disabled>
                 <option value="">Selecione...</option>
-                <option value="MTP">Mapa do Trader Patrocinado</option>
+                <option value="DTSD">Dólar Todo Santo Dia</option>
                 <option value="WB">Webinário Diário</option>
                 <option value="AA">Auto-Agendamento</option>
                 <option value="SAA">Sem Auto-Agendamento</option>
@@ -42,7 +42,6 @@
                 <option value="">Selecione...</option>
                 <option value="RS">Robert Sampaio</option>
                 <option value="SB">Samuel Bassani</option>
-                <option value="GK">Gabriela Kowacic</option>
                 <option value="GS">Gabriela Sales</option>
                 <option value="JS">João Syrio</option>
                 <option value="BV">Beatriz Volpi</option>
@@ -52,7 +51,6 @@
                 <option value="PS">Pedro Sampaio</option>
                 <option value="RF">Rafaela Freitas</option>
                 <option value="RR">Reginaldo Roberto</option>
-                <option value="VG">Vivian Guedes</option>
             </select>
 
             <button type="button" id="generateLink">Gerar link</button>
@@ -81,7 +79,7 @@ document.getElementById("funil").addEventListener("change", function() {
         campanha.disabled = false;
         campanha.innerHTML = `
             <option value="">Selecione...</option>
-            <option value="MTP">Mapa do Trader Patrocinado</option> 
+            <option value="DTSD">Dólar Todo Santo Dia</option> 
             <option value="WB">Webinário Diário</option>
         `;
     } else if (funil === "SE") {
