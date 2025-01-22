@@ -32,7 +32,6 @@
             <select id="campanha" disabled>
                 <option value="">Selecione...</option>
                 <option value="DTSD">Dólar Todo Santo Dia</option>
-                <option value="WB">Webinário Diário</option>
                 <option value="AA">Auto-Agendamento</option>
                 <option value="SAA">Sem Auto-Agendamento</option>
             </select>
@@ -51,6 +50,7 @@
                 <option value="PS">Pedro Sampaio</option>
                 <option value="RF">Rafaela Freitas</option>
                 <option value="RR">Reginaldo Roberto</option>
+                <option value="LS">Luanna Silva</option>
             </select>
 
             <button type="button" id="generateLink">Gerar link</button>
@@ -80,7 +80,6 @@ document.getElementById("funil").addEventListener("change", function() {
         campanha.innerHTML = `
             <option value="">Selecione...</option>
             <option value="DTSD">Dólar Todo Santo Dia</option> 
-            <option value="WB">Webinário Diário</option>
         `;
     } else if (funil === "SE") {
         campanha.disabled = false;
