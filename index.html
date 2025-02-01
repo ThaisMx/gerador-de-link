@@ -1,299 +1,299 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Links Cronnos</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-3.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-    <script defer src="script.js"></script>
-</head>
-<body>
-    <div class="container">
-        <img src="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-2-e1729300987792.png" alt="Logo Cronnos" class="logo">
-        <h2>Gerador de Links Cronnos</h2>
-        <form id="checkoutForm">
-            <label for="checkoutLink">Link do Checkout:</label>
-            <input type="url" id="checkoutLink" placeholder="Insira o link do checkout" required>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Links Cronnos</title>
+  <link rel="icon" href="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-3.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset e configurações básicas */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #121212, #2c3e50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: #fff;
+    }
 
-            <label for="funil">Funil:</label>
-            <select id="funil" required>
-                <option value="">Selecione...</option>
-                <option value="LAN">Lançamento</option>
-                <option value="SE">Sessão Estratégica</option>
-                <option value="CP">Consultoria Paga</option>
-                <option value="LM">Levantada de Mão</option>
-                <option value="SS">Social Selling</option>
-            </select>
+    .container {
+      background: rgba(30, 30, 30, 0.95);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    
+    .logo {
+      display: block;
+      max-width: 150px;
+      margin: 0 auto 1rem;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    label {
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+    }
+    
+    input[type="url"],
+    select {
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: none;
+      background: #424242;
+      color: #e0e0e0;
+      font-size: 1rem;
+      width: 100%;
+    }
+    
+    input[type="url"]::placeholder {
+      color: #bbb;
+    }
+    
+    button {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background: #5750d3;
+    }
+    
+    #linkOutput {
+      margin-top: 1.5rem;
+      background: #2c3e50;
+      padding: 1rem;
+      border-radius: 8px;
+      word-wrap: break-word;
+      font-size: 0.9rem;
+    }
+    
+    #linkOutput a {
+      color: #76c7c0;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    
+    .copy-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+    
+    .copy-btn img {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s;
+    }
+    
+    .copy-btn:hover img {
+      transform: scale(1.1);
+    }
+    
+    .quick-links {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .quick-links a {
+      color: #76c7c0;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+    
+    .credit {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+    
+    /* Ajustes para telas menores */
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      input[type="url"],
+      select,
+      button {
+        font-size: 0.9rem;
+      }
+      
+      #linkOutput {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      const funilSelect = document.getElementById("funil");
+      const campanhaSelect = document.getElementById("campanha");
+      const generateLinkButton = document.getElementById("generateLink");
+      const linkOutput = document.getElementById("linkOutput");
 
-            <label for="campanha">Campanha:</label>
-            <select id="campanha" disabled>
-                <option value="">Selecione...</option>
-                <option value="DTSD">Dólar Todo Santo Dia</option>
-                <option value="AA">Auto-Agendamento</option>
-                <option value="SAA">Sem Auto-Agendamento</option>
-            </select>
-
-            <label for="closer">Inside Sales:</label>
-            <select id="closer">
-                <option value="">Selecione...</option>
-                <option value="RS">Robert Sampaio</option>
-                <option value="SB">Samuel Bassani</option>
-                <option value="GS">Gabriela Sales</option>
-                <option value="JS">João Syrio</option>
-                <option value="BV">Beatriz Volpi</option>
-                <option value="EN">Érica Nogueira</option>
-                <option value="FC">Fernanda Castillo</option>
-                <option value="LV">Laura Vozniak</option>
-                <option value="PS">Pedro Sampaio</option>
-                <option value="RF">Rafaela Freitas</option>
-                <option value="RR">Reginaldo Roberto</option>
-                <option value="LS">Luanna Silva</option>
-            </select>
-
-            <button type="button" id="generateLink">Gerar link</button>
-        </form>
-
-        <div id="linkOutput"></div>
-
-        <div class="quick-links">
-            <a href="https://www.loom.com/share/e2f7605648b0480dbb982a78ddb5795b?sid=5bba14a4-f807-4369-b119-c0177cdb9246" target="_blank">Central de Ajuda</a>
-            <a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" target="_blank">Link de Venda</a>
-        </div>
-
-        <p class="credit">Feito com ♥ por Thais M.</p>
-    </div>
-</body>
-</html>
-
-
-<!-- script.js -->
-<script>
-document.getElementById("funil").addEventListener("change", function() {
-    const funil = document.getElementById("funil").value;
-    const campanha = document.getElementById("campanha");
-
-    if (funil === "LAN") {
-        campanha.disabled = false;
-        campanha.innerHTML = `
+      // Atualiza as opções do select "campanha" de acordo com o funil selecionado
+      funilSelect.addEventListener("change", function() {
+        const funil = funilSelect.value;
+        if (funil === "LAN") {
+          campanhaSelect.disabled = false;
+          campanhaSelect.innerHTML = `
             <option value="">Selecione...</option>
-            <option value="DTSD">Dólar Todo Santo Dia</option> 
-        `;
-    } else if (funil === "SE") {
-        campanha.disabled = false;
-        campanha.innerHTML = `
+            <option value="DTSD">Dólar Todo Santo Dia</option>
+          `;
+        } else if (funil === "SE") {
+          campanhaSelect.disabled = false;
+          campanhaSelect.innerHTML = `
             <option value="">Selecione...</option>
             <option value="AA">Auto-Agendamento</option>
             <option value="SAA">Sem Auto-Agendamento</option>
-        `;
-    } else {
-        campanha.disabled = true;
-        campanha.innerHTML = `<option value="">Selecione...</option>`;
-    }
-});
+          `;
+        } else {
+          campanhaSelect.disabled = true;
+          campanhaSelect.innerHTML = `<option value="">Selecione...</option>`;
+        }
+      });
 
-document.getElementById("generateLink").addEventListener("click", function() {
-    const checkoutLink = document.getElementById("checkoutLink").value;
-    const funil = document.getElementById("funil").value;
-    const campanha = document.getElementById("campanha").value;
-    const closer = document.getElementById("closer").value;
+      // Gera o link com base nos dados informados
+      generateLinkButton.addEventListener("click", function() {
+        const checkoutLink = document.getElementById("checkoutLink").value.trim();
+        const funil = funilSelect.value;
+        const campanha = campanhaSelect.value;
+        const closer = document.getElementById("closer").value;
 
-    // Validação dos campos obrigatórios
-    if (!checkoutLink || !funil) {
-        alert("Por favor, preencha todos os campos obrigatórios.");
-        return;
-    }
+        // Valida os campos obrigatórios
+        if (!checkoutLink || !funil) {
+          alert("Por favor, preencha todos os campos obrigatórios.");
+          return;
+        }
+        if (!closer) {
+          alert("Por favor, selecione um Inside Sales.");
+          return;
+        }
 
-    if (!closer) {
-        alert("Por favor, selecione um Inside Sales.");
-        return;
-    }
-
-    // Construção do link
-    let link = checkoutLink;
-
-    if (checkoutLink.startsWith("https://pay.hotmart.com/")) {
-        const srcParams = ["comercial_org", funil, campanha, closer].filter(Boolean).join("-");
-        link += (link.includes("?") ? "&" : "?") + "src=" + srcParams;
-    } else {
-        link += "?utm_source=comercial_org";
-        link += "&utm_campaign=" + funil;
-
-        if (campanha) {
+        let link = checkoutLink;
+        if (checkoutLink.startsWith("https://pay.hotmart.com/")) {
+          const srcParams = ["comercial_org", funil, campanha, closer].filter(Boolean).join("-");
+          link += (link.includes("?") ? "&" : "?") + "src=" + srcParams;
+        } else {
+          link += "?utm_source=comercial_org";
+          link += "&utm_campaign=" + funil;
+          if (campanha) {
             link += "&utm_term=" + campanha;
-        }
-        if (closer) {
+          }
+          if (closer) {
             link += "&utm_content=" + closer;
+          }
         }
-    }
 
-    // Exibição do link gerado
-    document.getElementById("linkOutput").innerHTML = `
-        <p style="font-size: 0.9em;">
+        linkOutput.innerHTML = `
+          <p>
             Link Gerado: <a href="${link}" target="_blank">${link}</a>
-            <button id="copyLinkButton" class="copy-btn">
-                <img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar">
+            <button id="copyLinkButton" class="copy-btn" title="Copiar link">
+              <img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar">
             </button>
-        </p>
-    `;
-
-    // Função de cópia para a área de transferência
-    document.getElementById("copyLinkButton").addEventListener("click", function() {
-        navigator.clipboard.writeText(link).then(() => {
+          </p>
+        `;
+        document.getElementById("copyLinkButton").addEventListener("click", function() {
+          navigator.clipboard.writeText(link).then(() => {
             alert("Link copiado para a área de transferência!");
-        }).catch(err => {
+          }).catch(err => {
             console.error("Erro ao copiar o link: ", err);
+          });
         });
+      });
     });
-});
-</script>
+  </script>
+</head>
+<body>
+  <div class="container">
+    <img src="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-2-e1729300987792.png" alt="Logo Cronnos" class="logo">
+    <h2>Gerador de Links Cronnos</h2>
+    <form id="checkoutForm">
+      <label for="checkoutLink">Link do Checkout:</label>
+      <input type="url" id="checkoutLink" placeholder="Insira o link do checkout" required>
 
-<!-- styles.css -->
-<style>
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 10px;
-    box-sizing: border-box;
-}
+      <label for="funil">Funil:</label>
+      <select id="funil" required>
+        <option value="">Selecione...</option>
+        <option value="LAN">Lançamento</option>
+        <option value="SE">Sessão Estratégica</option>
+        <option value="CP">Consultoria Paga</option>
+        <option value="LM">Levantada de Mão</option>
+        <option value="SS">Social Selling</option>
+      </select>
 
-.container {
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
+      <label for="campanha">Campanha:</label>
+      <select id="campanha" disabled>
+        <option value="">Selecione...</option>
+        <option value="DTSD">Dólar Todo Santo Dia</option>
+        <option value="AA">Auto-Agendamento</option>
+        <option value="SAA">Sem Auto-Agendamento</option>
+      </select>
 
-.logo {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-}
+      <label for="closer">Inside Sales:</label>
+      <select id="closer" required>
+        <option value="">Selecione...</option>
+        <option value="RS">Robert Sampaio</option>
+        <option value="SB">Samuel Bassani</option>
+        <option value="GS">Gabriela Sales</option>
+        <option value="JS">João Syrio</option>
+        <option value="BV">Beatriz Volpi</option>
+        <option value="EN">Érica Nogueira</option>
+        <option value="FC">Fernanda Castillo</option>
+        <option value="LV">Laura Vozniak</option>
+        <option value="PS">Pedro Sampaio</option>
+        <option value="RF">Rafaela Freitas</option>
+        <option value="RR">Reginaldo Roberto</option>
+        <option value="LS">Luanna Silva</option>
+      </select>
 
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 15px;
-    text-align: left;
-    font-weight: 500;
-    font-size: 0.9em;
-}
-
-select, input, button {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    font-size: 1em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-select, input {
-    background-color: #2e2e2e;
-    color: #ffffff;
-}
-
-button {
-    background-color: #6c63ff;
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #5750d3;
-}
-
-#linkOutput {
-    margin-top: 20px;
-    word-wrap: break-word;
-    color: #76c7c0;
-    font-size: 0.9em;
-}
-
-#linkOutput a {
-    color: #76c7c0;
-    text-decoration: none;
-    display: inline;
-    margin-right: 10px;
-}
-
-.copy-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    vertical-align: middle;
-}
-
-.copy-btn img {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s;
-}
-
-.copy-btn:hover img {
-    transform: scale(1.1);
-}
-
-.quick-links {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.quick-links a {
-    color: #ffffff;
-    text-decoration: underline;
-    font-size: 0.9em;
-}
-
-.credit {
-    margin-top: 20px;
-    font-size: 0.8em;
-    color: #ffffff;
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
-    }
-
-    h2 {
-        font-size: 1.3em;
-    }
-
-    select, input, button {
-        font-size: 0.9em;
-    }
-
-    #linkOutput p {
-        font-size: 0.8em;
-    }
-
-    label {
-        font-size: 0.85em;
-    }
-}
-</style>
+      <button type="button" id="generateLink">Gerar link</button>
+    </form>
+    <div id="linkOutput"></div>
+    <div class="quick-links">
+      <a href="https://www.loom.com/share/e2f7605648b0480dbb982a78ddb5795b?sid=5bba14a4-f807-4369-b119-c0177cdb9246" target="_blank">Central de Ajuda</a>
+      <a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" target="_blank">Link de Venda</a>
+    </div>
+    <p class="credit">Feito com ♥ por Thais M.</p>
+  </div>
+</body>
+</html>
