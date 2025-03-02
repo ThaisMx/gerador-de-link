@@ -3,103 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gerador de links UTM para o time comercial da Cronnos">
   <title>Links Cronnos</title>
   <link rel="icon" href="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-3.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <style>
-    /* Reset e configurações básicas */
+    :root {
+      --primary: #6c63ff;
+      --primary-hover: #5750d3;
+      --success: #4CAF50;
+      --text: #e0e0e0;
+      --text-secondary: #aaa;
+      --bg-main: #121212;
+      --bg-card: rgba(30, 30, 30, 0.95);
+      --bg-input: #424242;
+      --accent: #76c7c0;
+      --transition: all 0.3s ease;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --border-radius: 12px;
+    }
+
+    .light-theme {
+      --primary: #5046e5;
+      --primary-hover: #4339c5;
+      --success: #45a049;
+      --text: #333333;
+      --text-secondary: #666;
+      --bg-main: #f5f5f5;
+      --bg-card: #ffffff;
+      --bg-input: #f0f0f0;
+      --accent: #3e9b94;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      transition: var(--transition);
     }
     
     body {
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #121212, #2c3e50);
+      background: linear-gradient(135deg, var(--bg-main), #2c3e50);
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       padding: 20px;
-      color: #fff;
+      color: var(--text);
+      line-height: 1.6;
     }
 
     .container {
-      background: rgba(30, 30, 30, 0.95);
-      border-radius: 12px;
-      padding: 2rem;
-      max-width: 500px;
+      background: var(--bg-card);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      max-width: 550px;
       width: 100%;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--shadow);
       text-align: center;
+      position: relative;
+    }
+    
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+    
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
     }
     
     .logo {
-      display: block;
-      max-width: 150px;
-      margin: 0 auto 1rem;
+      max-width: 170px;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
     }
     
     h2 {
       font-size: 1.8rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
       letter-spacing: 1px;
+      font-weight: 600;
+      color: var(--text);
     }
     
     form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.2rem;
+    }
+    
+    .form-group {
+      text-align: left;
     }
     
     label {
       font-size: 1rem;
       font-weight: 500;
-      text-align: left;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .required::after {
+      content: " *";
+      color: #ff4d4d;
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .field-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
     }
     
     input[type="url"],
     select {
-      padding: 0.75rem;
+      padding: 0.75rem 0.75rem 0.75rem 2.2rem;
       border-radius: 8px;
-      border: none;
-      background: #424242;
-      color: #e0e0e0;
+      border: 1px solid transparent;
+      background: var(--bg-input);
+      color: var(--text);
       font-size: 1rem;
       width: 100%;
+      outline: none;
+      transition: var(--transition);
+    }
+    
+    input[type="url"]:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
     }
     
     input[type="url"]::placeholder {
-      color: #bbb;
+      color: var(--text-secondary);
+    }
+    
+    select:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
     
     button {
-      padding: 0.75rem;
+      padding: 0.85rem;
       border: none;
       border-radius: 8px;
-      background: #6c63ff;
+      background: var(--primary);
       color: #fff;
       font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     
     button:hover {
-      background: #5750d3;
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    
+    button:active {
+      transform: translateY(0);
     }
     
     #linkOutput {
-      margin-top: 1.5rem;
-      background: #2c3e50;
-      padding: 1rem;
+      margin-top: 2rem;
+      background: var(--bg-input);
+      padding: 1.2rem;
       border-radius: 8px;
       word-wrap: break-word;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      display: none;
+    }
+    
+    #linkOutput.visible {
+      display: block;
+      animation: fadeIn 0.5s;
     }
     
     #linkOutput a {
-      color: #76c7c0;
+      color: var(--accent);
       text-decoration: none;
       word-break: break-all;
     }
@@ -108,192 +225,683 @@
       background: transparent;
       border: none;
       cursor: pointer;
+      padding: 5px;
+      margin-left: 5px;
+      color: var(--text);
       vertical-align: middle;
+      border-radius: 4px;
     }
     
-    .copy-btn img {
-      width: 20px;
-      height: 20px;
-      transition: transform 0.3s;
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: none;
     }
     
-    .copy-btn:hover img {
-      transform: scale(1.1);
+    .copy-btn i {
+      font-size: 1.1rem;
     }
     
     .quick-links {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
     }
     
-    .quick-links a {
-      color: #76c7c0;
-      text-decoration: underline;
+    .quick-link {
+      color: var(--accent);
+      text-decoration: none;
       font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      position: relative;
+    }
+    
+    .quick-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .quick-link:hover::after {
+      width: 100%;
     }
     
     .credit {
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .heart-icon {
+      color: #ff4d4d;
+      display: inline-block;
+      animation: heartBeat 1.5s infinite;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--success);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .toast.show {
+      opacity: 1;
+    }
+    
+    .history-section {
+      margin-top: 2rem;
+      display: none;
+    }
+    
+    .history-section.has-history {
+      display: block;
+    }
+    
+    .history-title {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    
+    .history-list {
+      max-height: 150px;
+      overflow-y: auto;
+      background: var(--bg-input);
+      border-radius: 8px;
+      padding: 0.8rem;
+    }
+    
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    
+    .history-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: left;
       font-size: 0.85rem;
-      color: #aaa;
+    }
+    
+    .history-actions {
+      display: flex;
+      gap: 5px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.3); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.3); }
+      70% { transform: scale(1); }
     }
     
     /* Ajustes para telas menores */
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .container {
         padding: 1.5rem;
       }
       
       h2 {
         font-size: 1.5rem;
+        margin-bottom: 1.5rem;
       }
       
       input[type="url"],
       select,
       button {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
       }
       
       #linkOutput {
         font-size: 0.85rem;
+        padding: 1rem;
+      }
+      
+      .quick-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
       }
     }
   </style>
-  <script defer>
+</head>
+<body>
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Link copiado com sucesso!</span>
+  </div>
+
+  <div class="container">
+    <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema claro/escuro">
+      <i class="fas fa-moon"></i>
+    </button>
+    
+    <div class="logo-container">
+      <img src="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-2-e1729300987792.png" alt="Logo Cronnos" class="logo">
+    </div>
+    
+    <h2>Gerador de Links Cronnos</h2>
+    
+    <form id="checkoutForm">
+      <div class="form-group">
+        <label for="checkoutLink" class="required">Link do Checkout</label>
+        <div class="input-wrapper">
+          <i class="fas fa-link field-icon"></i>
+          <input type="url" id="checkoutLink" placeholder="Insira o link do checkout" required
+                 aria-required="true">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="funil" class="required">Funil</label>
+        <div class="input-wrapper">
+          <i class="fas fa-filter field-icon"></i>
+          <select id="funil" required aria-required="true">
+            <option value="">Selecione...</option>
+            <option value="LAN">Lançamento</option>
+            <option value="SE">Sessão Estratégica</option>
+            <option value="CP">Consultoria Paga</option>
+            <option value="LM">Levantada de Mão</option>
+            <option value="SS">Social Selling</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="campanha">Campanha</label>
+        <div class="input-wrapper">
+          <i class="fas fa-bullhorn field-icon"></i>
+          <select id="campanha" disabled aria-disabled="true">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="closer" class="required">Inside Sales</label>
+        <div class="input-wrapper">
+          <i class="fas fa-user-tie field-icon"></i>
+          <select id="closer" required aria-required="true">
+            <option value="">Selecione...</option>
+            <option value="RS">Robert Sampaio</option>
+            <option value="SB">Samuel Bassani</option>
+            <option value="GS">Gabriela Sales</option>
+            <option value="JS">João Syrio</option>
+            <option value="FC">Fernanda Castillo</option>
+            <option value="PS">Pedro Sampaio</option>
+            <option value="RR">Reginaldo Roberto</option>
+            <option value="LS">Luanna Silva</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="button" id="generateLink">
+        <i class="fas fa-magic"></i>
+        Gerar link
+      </button>
+    </form>
+    
+    <div id="linkOutput" aria-live="polite"></div>
+    
+    <div id="historySection" class="history-section">
+      <h3 class="history-title">Links Recentes</h3>
+      <div id="historyList" class="history-list"></div>
+    </div>
+    
+    <div class="quick-links">
+      <a href="https://www.loom.com/share/e2f7605648b0480dbb982a78ddb5795b?sid=5bba14a4-f807-4369-b119-c0177cdb9246" 
+         target="_blank" class="quick-link" aria-label="Acessar Central de Ajuda">
+        <i class="fas fa-question-circle"></i>
+        Central de Ajuda
+      </a>
+      <a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" 
+         target="_blank" class="quick-link" aria-label="Acessar Link de Venda">
+        <i class="fas fa-external-link-alt"></i>
+        Link de Venda
+      </a>
+    </div>
+    
+    <p class="credit">
+      Feito com <span class="heart-icon">♥</span> por Thais M.
+    </p>
+  </div>
+
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const funilSelect = document.getElementById("funil");
-      const campanhaSelect = document.getElementById("campanha");
-      const generateLinkButton = document.getElementById("generateLink");
-      const linkOutput = document.getElementById("linkOutput");
-
-      // Atualiza as opções do select "campanha" de acordo com o funil selecionado
-      funilSelect.addEventListener("change", function() {
-        const funil = funilSelect.value;
-        if (funil === "LAN") {
-          campanhaSelect.disabled = false;
-          campanhaSelect.innerHTML = `
-            <option value="">Selecione...</option>
-            <option value="SLD">Semana L.U.C.R.O em Dólar</option>
-                <option value="CMI">Webinario Contra Manada I</option>
-        <option value="CMII">Webinario Contra Manada II</option>
-          `;
-        } else if (funil === "SE") {
-          campanhaSelect.disabled = false;
-          campanhaSelect.innerHTML = `
-            <option value="">Selecione...</option>
-            <option value="AA">Auto-Agendamento</option>
-            <option value="SAA">Sem Auto-Agendamento</option>
-          `;
-        } else {
-          campanhaSelect.disabled = true;
-          campanhaSelect.innerHTML = `<option value="">Selecione...</option>`;
-        }
+      // Elementos DOM
+      const themeToggle = document.getElementById('themeToggle');
+      const toggleIcon = themeToggle.querySelector('i');
+      const funilSelect = document.getElementById('funil');
+      const campanhaSelect = document.getElementById('campanha');
+      const generateLinkButton = document.getElementById('generateLink');
+      const linkOutput = document.getElementById('linkOutput');
+      const checkoutLinkInput = document.getElementById('checkoutLink');
+      const closerSelect = document.getElementById('closer');
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const historySection = document.getElementById('historySection');
+      const historyList = document.getElementById('historyList');
+      
+      // Inicialização do tema
+      initTheme();
+      
+      // Carregar histórico do localStorage
+      loadHistory();
+      
+      // Verificar se há valores salvos no localStorage
+      loadSavedFormValues();
+      
+      // Alternância de tema claro/escuro
+      themeToggle.addEventListener('click', toggleTheme);
+      
+      // Atualiza as opções de campanha com base no funil selecionado
+      funilSelect.addEventListener('change', updateCampanhaOptions);
+      
+      // Evento de envio do formulário
+      generateLinkButton.addEventListener('click', generateLink);
+      
+      // Adicionar evento de tecla Enter para gerar link
+      document.querySelectorAll('input, select').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            generateLink();
+          }
+        });
       });
-
-      // Gera o link com base nos dados informados
-      generateLinkButton.addEventListener("click", function() {
-        const checkoutLink = document.getElementById("checkoutLink").value.trim();
+      
+      // Salvar valores do formulário ao mudar
+      document.querySelectorAll('input, select').forEach(input => {
+        input.addEventListener('change', saveFormValues);
+      });
+      
+      // Funções
+      function initTheme() {
+        // Verificar preferência do tema salva
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'light') {
+          document.body.classList.add('light-theme');
+          toggleIcon.classList.remove('fa-moon');
+          toggleIcon.classList.add('fa-sun');
+        }
+      }
+      
+      function toggleTheme() {
+        document.body.classList.toggle('light-theme');
+        
+        if (document.body.classList.contains('light-theme')) {
+          toggleIcon.classList.remove('fa-moon');
+          toggleIcon.classList.add('fa-sun');
+          localStorage.setItem('theme', 'light');
+        } else {
+          toggleIcon.classList.remove('fa-sun');
+          toggleIcon.classList.add('fa-moon');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+      
+      function updateCampanhaOptions() {
+        const funil = funilSelect.value;
+        
+        if (funil === 'LAN') {
+          enableCampanhaSelect([
+            { value: 'SLD', text: 'Semana L.U.C.R.O em Dólar' },
+            { value: 'CMI', text: 'Webinario Contra Manada I' },
+            { value: 'CMII', text: 'Webinario Contra Manada II' }
+          ]);
+        } else if (funil === 'SE') {
+          enableCampanhaSelect([
+            { value: 'AA', text: 'Auto-Agendamento' },
+            { value: 'SAA', text: 'Sem Auto-Agendamento' }
+          ]);
+        } else {
+          disableCampanhaSelect();
+        }
+        
+        saveFormValues();
+      }
+      
+      function enableCampanhaSelect(options) {
+        campanhaSelect.innerHTML = '<option value="">Selecione...</option>';
+        
+        options.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.textContent = option.text;
+          campanhaSelect.appendChild(optionElement);
+        });
+        
+        campanhaSelect.disabled = false;
+        campanhaSelect.setAttribute('aria-disabled', 'false');
+      }
+      
+      function disableCampanhaSelect() {
+        campanhaSelect.innerHTML = '<option value="">Selecione...</option>';
+        campanhaSelect.disabled = true;
+        campanhaSelect.setAttribute('aria-disabled', 'true');
+      }
+      
+      function isValidUrl(string) {
+        try {
+          new URL(string);
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
+      
+      function generateLink() {
+        // Valores do formulário
+        const checkoutLink = checkoutLinkInput.value.trim();
         const funil = funilSelect.value;
         const campanha = campanhaSelect.value;
-        const closer = document.getElementById("closer").value;
-
-        // Valida os campos obrigatórios
-        if (!checkoutLink || !funil) {
-          alert("Por favor, preencha todos os campos obrigatórios.");
+        const closer = closerSelect.value;
+        
+        // Validação
+        if (!checkoutLink) {
+          showToast('Por favor, insira o link do checkout', 'error');
+          checkoutLinkInput.focus();
           return;
         }
+        
+        if (!isValidUrl(checkoutLink)) {
+          showToast('Por favor, insira um link válido', 'error');
+          checkoutLinkInput.focus();
+          return;
+        }
+        
+        if (!funil) {
+          showToast('Por favor, selecione um funil', 'error');
+          funilSelect.focus();
+          return;
+        }
+        
         if (!closer) {
-          alert("Por favor, selecione um Inside Sales.");
+          showToast('Por favor, selecione um Inside Sales', 'error');
+          closerSelect.focus();
           return;
         }
-
+        
+        // Se for lançamento, campanha é obrigatória
+        if (funil === 'LAN' && !campanha) {
+          showToast('Campanha é obrigatória para Lançamento', 'error');
+          campanhaSelect.focus();
+          return;
+        }
+        
+        // Gerar link com base no tipo (Hotmart ou outros)
         let link = checkoutLink;
-        if (checkoutLink.startsWith("https://pay.hotmart.com/")) {
-          const srcParams = ["comercial_org", funil, campanha, closer].filter(Boolean).join("-");
-          link += (link.includes("?") ? "&" : "?") + "src=" + srcParams;
+        
+        if (checkoutLink.startsWith('https://pay.hotmart.com/')) {
+          const srcParams = ['comercial_org', funil, campanha, closer].filter(Boolean).join('-');
+          link += (link.includes('?') ? '&' : '?') + 'src=' + srcParams;
         } else {
-          link += "?utm_source=comercial_org";
-          link += "&utm_campaign=" + funil;
+          link += (link.includes('?') ? '&' : '?') + 'utm_source=comercial_org';
+          link += '&utm_campaign=' + funil;
+          
           if (campanha) {
-            link += "&utm_term=" + campanha;
+            link += '&utm_term=' + campanha;
           }
+          
           if (closer) {
-            link += "&utm_content=" + closer;
+            link += '&utm_content=' + closer;
           }
         }
-
+        
+        // Exibir o link gerado
         linkOutput.innerHTML = `
           <p>
-            Link Gerado: <a href="${link}" target="_blank">${link}</a>
-            <button id="copyLinkButton" class="copy-btn" title="Copiar link">
-              <img src="https://img.icons8.com/fluency/24/000000/copy.png" alt="Copiar">
+            <strong>Link Gerado:</strong> 
+            <a href="${link}" target="_blank" rel="noopener">${link}</a>
+            <button id="copyLinkButton" class="copy-btn" title="Copiar link" aria-label="Copiar link para área de transferência">
+              <i class="fas fa-copy"></i>
             </button>
           </p>
         `;
-        document.getElementById("copyLinkButton").addEventListener("click", function() {
-          navigator.clipboard.writeText(link).then(() => {
-            alert("Link copiado para a área de transferência!");
-          }).catch(err => {
-            console.error("Erro ao copiar o link: ", err);
-          });
+        
+        linkOutput.classList.add('visible');
+        
+        // Adicionar o link ao histórico
+        addToHistory(link);
+        
+        // Adicionar evento de cópia
+        document.getElementById('copyLinkButton').addEventListener('click', function() {
+          copyToClipboard(link);
         });
-      });
+      }
+      
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            showToast('Link copiado com sucesso!');
+          })
+          .catch(err => {
+            console.error('Erro ao copiar o link: ', err);
+            showToast('Erro ao copiar link', 'error');
+          });
+      }
+      
+      function showToast(message, type = 'success') {
+        // Configurar tipo de toast
+        if (type === 'error') {
+          toast.style.background = '#ff4d4d';
+          toastMessage.previousElementSibling.className = 'fas fa-exclamation-circle';
+        } else {
+          toast.style.background = 'var(--success)';
+          toastMessage.previousElementSibling.className = 'fas fa-check-circle';
+        }
+        
+        // Definir mensagem
+        toastMessage.textContent = message;
+        
+        // Mostrar toast
+        toast.classList.add('show');
+        
+        // Esconder após 3 segundos
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+      
+      function saveFormValues() {
+        const formValues = {
+          checkoutLink: checkoutLinkInput.value,
+          funil: funilSelect.value,
+          campanha: campanhaSelect.value,
+          closer: closerSelect.value
+        };
+        
+        localStorage.setItem('formValues', JSON.stringify(formValues));
+      }
+      
+      function loadSavedFormValues() {
+        const savedValues = localStorage.getItem('formValues');
+        
+        if (savedValues) {
+          const values = JSON.parse(savedValues);
+          
+          checkoutLinkInput.value = values.checkoutLink || '';
+          funilSelect.value = values.funil || '';
+          
+          // Atualizar opções de campanha após definir funil
+          if (values.funil) {
+            updateCampanhaOptions();
+            // Após atualizar as opções, definir o valor salvo
+            setTimeout(() => {
+              campanhaSelect.value = values.campanha || '';
+            }, 10);
+          }
+          
+          closerSelect.value = values.closer || '';
+        }
+      }
+      
+      function addToHistory(link) {
+        // Obter histórico existente
+        let history = JSON.parse(localStorage.getItem('linkHistory') || '[]');
+        
+        // Adicionar novo link no início (limitar a 5 links)
+        history.unshift({
+          link: link,
+          timestamp: new Date().toISOString()
+        });
+        
+        // Manter apenas os 5 mais recentes
+        history = history.slice(0, 5);
+        
+        // Salvar histórico atualizado
+        localStorage.setItem('linkHistory', JSON.stringify(history));
+        
+        // Atualizar a interface
+        loadHistory();
+      }
+      
+      function loadHistory() {
+        const history = JSON.parse(localStorage.getItem('linkHistory') || '[]');
+        
+        if (history.length > 0) {
+          historySection.classList.add('has-history');
+          historyList.innerHTML = '';
+          
+          history.forEach((item, index) => {
+            const date = new Date(item.timestamp);
+            const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            historyItem.innerHTML = `
+              <div class="history-text" title="${item.link}">
+                ${shortenLink(item.link)} <small>(${formattedDate})</small>
+              </div>
+              <div class="history-actions">
+                <button class="copy-btn" title="Copiar link" data-index="${index}">
+                  <i class="fas fa-copy"></i>
+                </button>
+                <button class="copy-btn" title="Usar novamente" data-index="${index}">
+                  <i class="fas fa-redo-alt"></i>
+                </button>
+              </div>
+            `;
+            
+            historyList.appendChild(historyItem);
+          });
+          
+          // Adicionar eventos aos botões
+          historyList.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+              const index = this.getAttribute('data-index');
+              const item = history[index];
+              
+              if (this.title === 'Copiar link') {
+                copyToClipboard(item.link);
+              } else if (this.title === 'Usar novamente') {
+                // Extrair parâmetros do link e preencher o formulário
+                fillFormFromLink(item.link);
+              }
+            });
+          });
+        } else {
+          historySection.classList.remove('has-history');
+        }
+      }
+      
+      function shortenLink(link) {
+        if (link.length > 50) {
+          return link.substring(0, 47) + '...';
+        }
+        return link;
+      }
+      
+      function fillFormFromLink(link) {
+        try {
+          const url = new URL(link);
+          
+          // Definir o link do checkout (sem parâmetros UTM)
+          const baseUrl = url.origin + url.pathname;
+          checkoutLinkInput.value = baseUrl;
+          
+          // Extrair parâmetros UTM
+          const params = url.searchParams;
+          
+          if (link.includes('pay.hotmart.com') && params.has('src')) {
+            // Formato Hotmart: src=comercial_org-LAN-SLD-RS
+            const srcParts = params.get('src').split('-');
+            
+            if (srcParts.length >= 2) {
+              funilSelect.value = srcParts[1] || '';
+              updateCampanhaOptions();
+              
+              if (srcParts.length >= 3) {
+                setTimeout(() => {
+                  campanhaSelect.value = srcParts[2] || '';
+                }, 10);
+              }
+              
+              if (srcParts.length >= 4) {
+                closerSelect.value = srcParts[3] || '';
+              }
+            }
+          } else {
+            // Formato UTM padrão
+            funilSelect.value = params.get('utm_campaign') || '';
+            updateCampanhaOptions();
+            
+            setTimeout(() => {
+              campanhaSelect.value = params.get('utm_term') || '';
+              closerSelect.value = params.get('utm_content') || '';
+            }, 10);
+          }
+          
+          // Salvar valores preenchidos
+          saveFormValues();
+          
+          // Feedback ao usuário
+          showToast('Formulário preenchido com sucesso!');
+          
+        } catch (error) {
+          console.error('Erro ao preencher formulário:', error);
+          showToast('Erro ao preencher formulário', 'error');
+        }
+      }
     });
   </script>
-</head>
-<body>
-  <div class="container">
-    <img src="https://willianaksenen.com.br/wp-content/uploads/2024/10/Logo-Linkedin-Cronnos-2-e1729300987792.png" alt="Logo Cronnos" class="logo">
-    <h2>Gerador de Links Cronnos</h2>
-    <form id="checkoutForm">
-      <label for="checkoutLink">Link do Checkout:</label>
-      <input type="url" id="checkoutLink" placeholder="Insira o link do checkout" required>
-
-      <label for="funil">Funil:</label>
-      <select id="funil" required>
-        <option value="">Selecione...</option>
-        <option value="LAN">Lançamento</option>
-        <option value="SE">Sessão Estratégica</option>
-        <option value="CP">Consultoria Paga</option>
-        <option value="LM">Levantada de Mão</option>
-        <option value="SS">Social Selling</option>
-      </select>
-
-      <label for="campanha">Campanha:</label>
-      <select id="campanha" disabled>
-        <option value="">Selecione...</option>
-        <option value="SLD">Semana L.U.C.R.O em Dólar</option>
-                <option value="CMI">Webinario Contra Manada I</option>
-        <option value="CMII">Webinario Contra Manada II</option>
-        <option value="AA">Auto-Agendamento</option>
-        <option value="SAA">Sem Auto-Agendamento</option>
-      </select>
-
-      <label for="closer">Inside Sales:</label>
-      <select id="closer" required>
-        <option value="">Selecione...</option>
-        <option value="RS">Robert Sampaio</option>
-        <option value="SB">Samuel Bassani</option>
-        <option value="GS">Gabriela Sales</option>
-        <option value="JS">João Syrio</option>
-        <option value="FC">Fernanda Castillo</option>
-        <option value="PS">Pedro Sampaio</option>
-        <option value="RR">Reginaldo Roberto</option>
-        <option value="LS">Luanna Silva</option>
-      </select>
-
-      <button type="button" id="generateLink">Gerar link</button>
-    </form>
-    <div id="linkOutput"></div>
-    <div class="quick-links">
-      <a href="https://www.loom.com/share/e2f7605648b0480dbb982a78ddb5795b?sid=5bba14a4-f807-4369-b119-c0177cdb9246" target="_blank">Central de Ajuda</a>
-      <a href="https://docs.google.com/spreadsheets/d/1g-snWUv7QUl3vYRCZQIYLe2xLBElONTXOwysa5FLbzc/edit?gid=1627635580#gid=1627635580" target="_blank">Link de Venda</a>
-    </div>
-    <p class="credit">Feito com ♥ por Thais M.</p>
-  </div>
 </body>
 </html>
